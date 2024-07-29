@@ -1,3 +1,7 @@
+import { Italiana } from "next/font/google"
+
+ const italiana= Italiana({weight:'400',subsets:['latin']})
+
 
 export const generateMetadata=async({params})=>{
     const res= await fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`)
@@ -23,7 +27,7 @@ const page = async ({params}) => {
     let {id,title,body}= await getPostById();
 
     return (
-        <div>
+        <div className={`${italiana.className}`}>
             <div className="border border-teal-800 rounded-lg p-3">
                 <h2> <span className="font-bold"> Id:</span> {id}</h2>
                 <h1> <span className="font-bold"> Post Title:</span>  {title}</h1>
