@@ -29,7 +29,7 @@ const NavBar = () => {
         <nav className="bg-slate-300 text-black flex justify-between items-center p-4">
             <h5 className="text-[34px] font-bold">
                 <span className="mr-2">Next</span>
-                <span className="text-green-400">Hero</span>
+                <span className="text-green-400">Meal</span>
             </h5>
 
             <ul className="flex gap-2">
