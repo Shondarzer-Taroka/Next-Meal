@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const page = async () => {
     let postsData = async () => {
-        let res = await fetch('https://jsonplaceholder.typicode.com/posts')
+        let res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`)
         let data = await res.json()
         return data
     }
@@ -12,7 +12,7 @@ const page = async () => {
     // console.log(x);
     return (
         <div>
-            All posts: {x.length}
+            All posts are got from server: {x.length}
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                 {x.map(post => {

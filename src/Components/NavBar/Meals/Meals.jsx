@@ -14,22 +14,23 @@ const Meals = () => {
     let [meals, setMeals] = useState([])
     let [error, setError] = useState('')
 
-    const loadData = async () => {
-
-        try {
-            let res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`)
-            let data = await res.json()
-            console.log(data);
-            setMeals(data.meals)
-            setError('')
-        } catch (error) {
-            setError('No data found')
-            // console.log(error);
-        }
-    }
 
 
     useEffect(() => {
+        const loadData = async () => {
+
+            try {
+                let res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`)
+                let data = await res.json()
+                console.log(data);
+                setMeals(data.meals)
+                setError('')
+            } catch (error) {
+                setError('No data found')
+                // console.log(error);
+            }
+        }
+    
         loadData()
     }, [search])
 

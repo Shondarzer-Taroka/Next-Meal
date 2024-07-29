@@ -3,7 +3,7 @@ import "./globals.css";
 import NavBar from "@/Components/NavBar/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
-const roboto = Roboto({ weight:['400','500','700','900'] ,subsets: ["latin"] });
+const roboto = Roboto({ weight:['400','500','700','900'] ,subsets: ["latin"] ,adjustFontFallback:false,display:'swap'});
 
 export const metadata = {
   title: "Next Meal",
