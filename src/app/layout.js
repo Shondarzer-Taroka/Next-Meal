@@ -1,9 +1,10 @@
-import { Inter,Roboto } from "next/font/google";
+import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/Components/NavBar/NavBar";
+import AuthProvider from "@/service/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
-const roboto = Roboto({ weight:['400','500','700','900'] ,subsets: ["latin"] ,adjustFontFallback:false,display:'swap'});
+const roboto = Roboto({ weight: ['400', '500', '700', '900'], subsets: ["latin"], adjustFontFallback: false, display: 'swap' });
 
 export const metadata = {
   title: "Next Meal",
@@ -13,12 +14,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={roboto.className}>
-        <NavBar></NavBar>
 
-        <div>
-          {children}
-        </div>
+      <body className={roboto.className}>
+
+        <AuthProvider>
+          <NavBar></NavBar>
+
+          <div>
+            {children}
+          </div>
+        </AuthProvider>
+
 
       </body>
     </html>

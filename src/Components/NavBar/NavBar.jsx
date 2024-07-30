@@ -1,11 +1,14 @@
 'use client'
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 
 const NavBar = () => {
     const pathName = usePathname()
-
+    const session = useSession()
+    console.log(session);
     const links = [
         {
             title: 'Posts',
@@ -19,7 +22,7 @@ const NavBar = () => {
             title: 'Meals',
             path: '/meals'
         },
-        
+
     ]
 
     if (pathName.includes('dashboard')) {
@@ -42,8 +45,29 @@ const NavBar = () => {
                 }
             </ul>
 
-            <button className="bg-green-400 text-white p-3 rounded-xl"> <Link href={'/login'}> log In</Link></button>
+
+            {session.status !== 'authenticated' ? <button className="bg-green-400 text-white p-3 rounded-xl"> <Link href={'/signin'} > log In</Link></button> :
+                <button className="bg-green-400 text-white p-3 rounded-xl"> <Link href={'/login'}> log out</Link></button>
+            }
+
+            <div>
+                {session && <div className="flex gap-1 items-center">
+
+                    <Image width={60} height={60} className="rounded-full border" alt={session.data?.user?.name} src={session.data?.user?.image} />
+                    <div>
+                        {session.data?.user.name}
+                        <br />
+                        {session.data?.user.email}
+                    </div>
+
+                </div>}
+            </div>
+
+            {/* {session.data?.user.name}
+            <br />
+           {session.data?.user.email} */}
         </nav>
+
     );
 };
 
