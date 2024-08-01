@@ -1,5 +1,5 @@
 'use client'
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -22,15 +22,19 @@ const NavBar = () => {
             title: 'Meals',
             path: '/meals'
         },
+        {
+            title: 'Dashboard',
+            path: '/dashboard'
+        },
 
     ]
 
-    if (pathName.includes('dashboard')) {
+    // if (pathName.includes('dashboard')) {
 
-        return <div className="bg-green-300">
-            <p>dashboard</p>
-        </div>
-    }
+    //     return <div className="bg-green-300">
+    //         <p>dashboard</p>
+    //     </div>
+    // }
 
     return (
         <nav className="bg-slate-300 text-black flex justify-between items-center p-4">
@@ -46,11 +50,20 @@ const NavBar = () => {
             </ul>
 
 
-            {session.status !== 'authenticated' ? <button className="bg-green-400 text-white p-3 rounded-xl"> <Link href={'/signin'} > log In</Link></button> :
-                <button className="bg-green-400 text-white p-3 rounded-xl"> <Link href={'/login'}> log out</Link></button>
+            {/* {session.status !== 'authenticated' ? <button className="bg-green-400 text-white p-3 rounded-xl" onClick={()=> signIn()}>  log In</button> :
+                <button onClick={()=> signOut()} className="bg-green-400 text-white p-3 rounded-xl">  log out</button>
+            } */}
+
+            <div className=" flex gap-4">
+
+            {session.status !== 'authenticated' ? <> <button className="bg-green-400 text-white p-3 rounded-xl" onClick={()=> signIn()}>  log In</button> 
+            
+           <Link href={'/api/auth/signup'}> <button className="bg-green-400 text-white p-3 rounded-xl">Register</button> </Link> 
+             </>:
+                <button onClick={()=> signOut()} className="bg-green-400 text-white p-3 rounded-xl">  log out</button>
             }
 
-            <div>
+
                 {session && <div className="flex gap-1 items-center">
 
                     <Image width={60} height={60} className="rounded-full border" alt={session.data?.user?.name} src={session.data?.user?.image} />

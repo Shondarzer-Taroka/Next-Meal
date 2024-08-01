@@ -1,8 +1,8 @@
 import NextAuth from "next-auth/next"
 import CredentialsProvider from "next-auth/providers/credentials"
-
- export const authOptions={
-    secret:process.env.NEXT_PUBLIC_AUTH_SECRET,
+import GoogleProvider from "next-auth/providers/google";
+export const authOptions = {
+    secret: process.env.NEXT_PUBLIC_AUTH_SECRET,
     session: {
         strategy: 'jwt'
     },
@@ -31,90 +31,97 @@ import CredentialsProvider from "next-auth/providers/credentials"
                 }
                 return null;
             }
+        }),
+
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET
         })
+
     ],
-    
-    callbacks:{
+
+    callbacks: {
         async jwt({ token, account, user }) {
             // Persist the OAuth access_token and or the user id to the token right after signin
             if (account) {
-              token.type = user.type
-            //   token.id = profile.id
+                token.type = user.type
+                //   token.id = profile.id
             }
             return token;
-          },
-          async session({ session, token }) {
-            session.user.type=token.type
+        },
+        async session({ session, token }) {
+            session.user.type = token.type
             return session;
-          },
-      
+        },
+
     }
 }
 
 let users = [
     {
         email: 'sakib@shishir.com',
-        type:'admin',
+        type: 'admin',
         password: '123asd',
-        name:'Sakib',
-        image:'https://www.parliament.gov.bd/mps/012009101.jpg',
+        name: 'Sakib',
+        image: 'https://www.parliament.gov.bd/mps/012009101.jpg',
         id: 1
     },
     {
         email: 'shishir@sakib.com',
         password: '123asd',
-        name:'Shishir',
+        name: 'Shishir',
         id: 2,
-        type:'admin'
+        type: 'admin'
     },
     {
         email: 'pori@gmail.com',
         password: 'password',
-        name:'Pori Moni',
+        name: 'Pori Moni',
         id: 3,
-        type:'admin'
+        type: 'admin'
     },
     {
         email: 'sabila@noor.com',
         password: '123asd',
-        name:'Sabila Noor',
+        name: 'Sabila Noor',
         id: 4,
-        type:'admin'
+        image: 'https://www.imdb.com/name/nm7132294/mediaviewer/rm2510881537/?ref_=nm_ov_ph',
+        type: 'admin'
     },
     {
         email: 'tasniya@farin.com',
         password: '123asd',
-        name:'Tasniya',
+        name: 'Tasniya',
         id: 5,
-        type:'admin'
+        type: 'admin'
     },
     {
         email: 'samira@mahi.com',
         password: 'mahi',
-        name:'Mahi',
+        name: 'Mahi',
         id: 6,
-        type:'admin'
+        type: 'admin'
     },
     {
         email: 'mahiya@mahi.com',
         password: '123asd',
-        name:'Mahiya',
+        name: 'Mahiya',
         id: 7,
-        type:'admin'
+        type: 'admin'
     },
     {
         email: 'sadiya@ayman.com',
         password: '123asd',
-        name:'Sadiya',
+        name: 'Sadiya',
         id: 8,
-        type:'admin'
+        type: 'admin'
     },
     {
         email: 'tanjin@tisha.com',
         password: '123asd',
-        name:'Tanjin',
+        name: 'Tanjin',
         id: 9,
-        type:'admin'
+        type: 'admin'
     },
 
 ]
