@@ -10,14 +10,17 @@ const page = () => {
             name: e.target.name.value,
             email: e.target.email.value,
             password: e.target.password.value,
-            photo: e.target.image.value,
+            image: e.target.image.value,
+            type:e.target.type.value
         }
 
+        console.log(newUser);
+
         let resp = await fetch('http://localhost:3000/api/auth/signup/new-user', {
-            method:'POST',
+            method: 'POST',
             body: JSON.stringify(newUser),
-            headers:{
-                'content-type':'application/json'
+            headers: {
+                'content-type': 'application/json'
             }
 
         })
@@ -68,13 +71,23 @@ const page = () => {
                                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                             </label>
                         </div>
+
+                        <div className='form-control border'>
+                            <label className="label flex gap-2">
+                                <span className="label-text">Type:</span>
+                                <select name='type' placeholder='user type' className=' w-full'>
+                                    <option value={'admin'}>Admin</option>
+                                    <option value={'moderator'}>Moderator</option>
+                                    <option value={'member'}>Member</option>
+                                </select>
+                            </label>
+                        </div>
+
                         <div className="form-control mt-6">
                             <button className="btn btn-primary">Register</button>
                         </div>
                     </form>
-                    <div className="form-control flex gap-4 p-5">
-                        <p>Aleady Registered? <Link href={'/login'}>please <span className="underline text-blue-500 font-semibold">Log In </span> </Link> </p>
-                    </div>
+
                 </div>
             </div>
         </div>

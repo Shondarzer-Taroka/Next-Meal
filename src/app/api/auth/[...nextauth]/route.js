@@ -1,3 +1,4 @@
+import connectDB from "@/lib/connectDB";
 import NextAuth from "next-auth/next"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google";
@@ -24,8 +25,9 @@ export const authOptions = {
                 if (!credentials) {
                     return null
                 }
-                const currentUser = users.find((user) => user.email === email);
-
+                const db = await connectDB();
+                const currentUser = await db.collection('users').findOne({ email });
+                console.log(currentUser);
                 if (currentUser && currentUser.password === password) {
                     return currentUser;
                 }
@@ -34,8 +36,8 @@ export const authOptions = {
         }),
 
         GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET
+            clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+            clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET
         })
 
     ],

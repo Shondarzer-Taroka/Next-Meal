@@ -8,7 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 const NavBar = () => {
     const pathName = usePathname()
     const session = useSession()
-    console.log(session);
+    console.log(session.data);
     const links = [
         {
             title: 'Posts',
